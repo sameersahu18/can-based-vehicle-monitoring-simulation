@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101820">
+  <title>Vehicle Monitor | Live Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="dashboard-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">VM</div>
+        <div>
+          <p class="eyebrow">FLEET SYSTEMS / VEHICLE 014</p>
+          <h1>Vehicle monitor</h1>
+        </div>
+      </div>
+      <div class="system-status"><span class="status-dot" aria-hidden="true"></span><span>SIMULATION ACTIVE</span></div>
+    </header>
+
+    <section class="overview" aria-labelledby="overview-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">POWERTRAIN OVERVIEW</p>
+          <h2 id="overview-title">Live vehicle metrics</h2>
+        </div>
+        <p class="update-indicator"><span class="pulse-dot" aria-hidden="true"></span>Updating every second</p>
+      </div>
+
+      <section id="diagnostic-panel" class="diagnostic-panel is-normal" aria-labelledby="diagnostic-title" aria-live="polite">
+        <div class="diagnostic-icon" aria-hidden="true">✓</div>
+        <div class="diagnostic-content">
+          <p class="eyebrow">DIAGNOSTIC ECU</p>
+          <h2 id="diagnostic-title">System Normal</h2>
+          <div id="diagnostic-details" class="diagnostic-details">No active diagnostic trouble codes.</div>
+        </div>
+        <span id="diagnostic-state" class="diagnostic-state">ALL SYSTEMS NOMINAL</span>
+      </section>
+
+      <div class="metrics-grid" aria-live="polite" aria-atomic="false">
+        <article class="metric-card metric-primary">
+          <div class="metric-top"><span class="metric-label">Engine RPM</span><span class="metric-icon" aria-hidden="true">RPM</span></div>
+          <p class="metric-value"><span id="engine-rpm">—</span><span class="metric-unit">rpm</span></p>
+          <p class="metric-footnote">Engine speed</p>
+          <div class="meter-track" aria-hidden="true"><span class="meter-fill" style="--fill: 38%"></span></div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-top"><span class="metric-label">Vehicle speed</span><span class="metric-icon" aria-hidden="true">SPD</span></div>
+          <p class="metric-value"><span id="vehicle-speed">—</span><span class="metric-unit">km/h</span></p>
+          <p class="metric-footnote">Road speed</p>
+          <div class="meter-track" aria-hidden="true"><span class="meter-fill" style="--fill: 30%"></span></div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-top"><span class="metric-label">Coolant temperature</span><span class="metric-icon" aria-hidden="true">TMP</span></div>
+          <p class="metric-value"><span id="coolant-temperature">—</span><span class="metric-unit">°C</span></p>
+          <p class="metric-footnote">Engine coolant</p>
+          <div class="meter-track" aria-hidden="true"><span class="meter-fill meter-warm" style="--fill: 60%"></span></div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-top"><span class="metric-label">Battery voltage</span><span class="metric-icon" aria-hidden="true">ELEC</span></div>
+          <p class="metric-value"><span id="battery-voltage">—</span><span class="metric-unit">V</span></p>
+          <p class="metric-footnote">Charging system</p>
+          <div class="meter-track" aria-hidden="true"><span class="meter-fill" style="--fill: 72%"></span></div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-top"><span class="metric-label">Engine oil pressure</span><span class="metric-icon" aria-hidden="true">OIL</span></div>
+          <p class="metric-value"><span id="oil-pressure">—</span><span class="metric-unit">bar</span></p>
+          <p class="metric-footnote">Lubrication system</p>
+          <div class="meter-track" aria-hidden="true"><span class="meter-fill" style="--fill: 64%"></span></div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-top"><span class="metric-label">Engine load</span><span class="metric-icon" aria-hidden="true">LOAD</span></div>
+          <p class="metric-value"><span id="engine-load">—</span><span class="metric-unit">%</span></p>
+          <p class="metric-footnote">Calculated engine load</p>
+          <div class="meter-track" aria-hidden="true"><span class="meter-fill" style="--fill: 45%"></span></div>
+        </article>
+      </div>
+
+      <section class="system-controls" aria-labelledby="controls-title">
+        <div class="controls-heading">
+          <div>
+            <p class="eyebrow">TEST / SIMULATION INPUT</p>
+            <h2 id="controls-title">System Controls <span>(Fault Injection)</span></h2>
+          </div>
+          <span class="controls-note">Select a condition to simulate</span>
+        </div>
+        <div class="control-buttons" role="group" aria-label="Fault injection modes">
+          <button class="control-button is-selected" type="button" data-fault-mode="NORMAL" aria-pressed="true"><span class="control-indicator" aria-hidden="true"></span>Normal Operation</button>
+          <button class="control-button" type="button" data-fault-mode="OVERHEAT" aria-pressed="false"><span class="control-indicator" aria-hidden="true"></span>Inject Overheat</button>
+          <button class="control-button" type="button" data-fault-mode="LOW_OIL" aria-pressed="false"><span class="control-indicator" aria-hidden="true"></span>Inject Low Oil</button>
+          <button class="control-button" type="button" data-fault-mode="LOW_BATTERY" aria-pressed="false"><span class="control-indicator" aria-hidden="true"></span>Inject Low Battery</button>
+        </div>
+      </section>
+
+      <section class="can-monitor" aria-labelledby="can-monitor-title">
+        <div class="can-monitor-heading">
+          <div>
+            <p class="eyebrow">COMMUNICATIONS / CAN 1</p>
+            <h2 id="can-monitor-title">CAN Bus Monitor</h2>
+          </div>
+          <span class="can-monitor-state"><span class="status-dot" aria-hidden="true"></span>BUS ACTIVE</span>
+        </div>
+        <div id="can-log" class="can-terminal" role="log" aria-live="polite" aria-relevant="additions" aria-label="CAN bus message log"></div>
+      </section>
+    </section>
+
+    <footer class="dashboard-footer"><span>VIRTUAL SENSOR FEED</span><span class="footer-divider" aria-hidden="true"></span><span>LOCAL SIMULATION</span></footer>
+  </main>
+</body>
+</html>
